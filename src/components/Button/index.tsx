@@ -2,10 +2,17 @@ import React from "react";
 
 import * as Style from "./styles";
 
-const Button: React.FC = () => {
+interface IProps {
+  handleClick: () => any;
+  text: string;
+}
+
+const Button: React.FC<IProps> = ({ handleClick, text }) => {
   return (
     <>
-      <Style.ButtonContainer>LOGIN</Style.ButtonContainer>
+      <Style.ButtonContainer onClick={() => handleClick()}>
+        {text}
+      </Style.ButtonContainer>
     </>
   );
 };
