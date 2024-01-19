@@ -34,7 +34,8 @@ const Login: React.FC = () => {
         throw err;
       })
 
-    }catch(err){
+    }catch(err: any){
+      console.log(err);
     }
   };
 
