@@ -8,6 +8,7 @@ const toastConfig: ToastOptions = {
   pauseOnHover: true,
   draggable: false,
   progress: undefined,
+  theme: 'colored',
 };
 
 export { toastConfig };
