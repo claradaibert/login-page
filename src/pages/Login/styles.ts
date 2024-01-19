@@ -37,6 +37,8 @@ export const Container = styled.div`
         height: 90%;
         border-radius: 70px 70px 0 0;
         box-shadow: -20px -10px 30px 0px rgba(0, 0, 0, 0.20);
+        justify-content: flex-start;
+        padding-top: 4rem;
     }
 `
 
@@ -44,4 +46,9 @@ export const PageTitle = styled.p`
     font-size: 1.5rem;
     font-weight: 200;
     color: ${({theme}) => theme.font_primary};
+    margin-bottom: 2rem;
+
+    @media screen and (max-width: 900px) {
+        font-weight: 400;
+    }
 `
