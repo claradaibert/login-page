@@ -10,7 +10,7 @@ interface IProps {
 const Button: React.FC<IProps> = ({ handleClick, text }) => {
   return (
     <>
-      <Style.ButtonContainer onClick={() => handleClick()}>
+      <Style.ButtonContainer onClick={() => handleClick()} aria-label="Botão de login">
         {text}
       </Style.ButtonContainer>
     </>
