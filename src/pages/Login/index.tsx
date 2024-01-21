@@ -7,6 +7,7 @@ import { api } from "../../services/api";
 
 //Component import
 import { Button } from "../../components/Button";
+import PageContainer from "../../components/PageContainer";
 import { Input } from "../../components/Input";
 
 // Style import
@@ -42,33 +43,29 @@ const Login: React.FC = () => {
       });
 
       const response = await api.post("/login", data);
-
     } catch (err: any) {
       setLoginErrorCounter((prev) => prev + 1);
-
     }
   };
 
   return (
-    <Style.PageWrap>
-      <Style.Container>
-        <p className="pageTitle">Fazer login</p>
-        <Input
-          name="email"
-          value={email}
-          label="E-mail"
-          handleChange={(value: string) => setEmail(value)}
-        />
-        <Input
-          name="password"
-          value={password}
-          label="Senha"
-          type="password"
-          handleChange={(value: string) => setPassword(value)}
-        />
-        <Button text={"LOGIN"} handleClick={handleClick} />
-      </Style.Container>
-    </Style.PageWrap>
+    <PageContainer>
+      <p className="pageTitle">Fazer login</p>
+      <Input
+        name="email"
+        value={email}
+        label="E-mail"
+        handleChange={(value: string) => setEmail(value)}
+      />
+      <Input
+        name="password"
+        value={password}
+        label="Senha"
+        type="password"
+        handleChange={(value: string) => setPassword(value)}
+      />
+      <Button text={"LOGIN"} handleClick={handleClick} />
+    </PageContainer>
   );
 };
 
