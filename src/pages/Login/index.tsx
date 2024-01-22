@@ -3,26 +3,34 @@ import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 
+// Hook import
+import { useAuth } from "../../hooks/useAuth";
+
 // Service import
 import { api } from "../../services/api";
 
 //Component import
 import { Button } from "../../components/Button";
 import PageContainer from "../../components/PageContainer";
-import { Input } from "../../components/Input";
 
 // Inner component import
 import { PageInputs } from "./PageInputs";
 
-// Style import
-import * as Style from "./styles";
-
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const auth = useAuth();
 
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [loginErrorCounter, setLoginErrorCounter] = useState<number>(0);
+  const maxLoginErrors = 5;
+
+  const handleDisabledButton = () => {
+    setTimeout(() => {
+      console.log("acabou timeout");
+      setLoginErrorCounter(maxLoginErrors);
+    }, 60000);
+  };
 
   const handleClick = async () => {
     try {
@@ -45,30 +53,51 @@ const Login: React.FC = () => {
         err.inner.forEach((error: any) => {
           toast.error(error.message);
         });
-        throw err;
+        // eslint-disable-next-line
+        throw "failed validation";
       });
 
       const response = await api.post("/login", data);
+
+      auth.setUser(response.data.user);
+      auth.setToken(response.data.token);
+
+      navigate("/profile");
     } catch (err: any) {
-      setLoginErrorCounter((prev) => prev + 1);
+      if (err === "failed validation") return;
+      setLoginErrorCounter((prev) => {
+        const newValue = prev + 1;
+        if (newValue > 5) {
+          handleDisabledButton();
+        }
+        return newValue;
+      });
+      toast.error(err.response.data.message);
     }
   };
 
   return (
     <PageContainer>
       <p className="pageTitle">Fazer login</p>
-      <PageInputs 
+      <PageInputs
         email={email}
         setEmail={setEmail}
         password={password}
         setPassword={setPassword}
       />
-      <Button text={"LOGIN"} handleClick={handleClick} />
-      <div className="separatorContainer">
-        <div className="separatorLine"/>
-        <div className="separatorText">ou</div>
-        <div className="separatorLine"/>
-      </div>
+      <Button
+        text={"LOGIN"}
+        handleClick={handleClick}
+        disabled={loginErrorCounter > maxLoginErrors}
+      />
+      <>
+        {loginErrorCounter > maxLoginErrors && (
+          <p className="errorMessage">
+            Devido a muitas tentativas falhadas, o login está temporariamente
+            bloqueado
+          </p>
+        )}
+      </>
       <button className="redirectionLink" onClick={() => navigate("/signUp")}>
         {" "}
         Não tem cadastro? Clique aqui
