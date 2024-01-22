@@ -22,7 +22,7 @@ const Profile: React.FC = () => {
     if (!auth.token) {
       navigate("/");
     }
-  }, []);
+  }, [auth.token, navigate]);
 
   return (
     <PageContainer>
