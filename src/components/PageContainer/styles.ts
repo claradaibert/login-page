@@ -30,7 +30,7 @@ export const Container = styled.div`
   box-shadow: -20px 10px 30px 0px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 2rem;
   justify-content: center;
   align-items: center;
 
@@ -56,5 +56,39 @@ export const Container = styled.div`
     @media screen and (max-width: 900px) {
       font-weight: 400;
     }
+  }
+
+  .infoGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .separatorContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    align-items: center;
+
+    .separatorText {
+      font-size:0.875rem;
+      color: ${({theme}) => theme.stroke_primary};
+    }
+
+    .separatorLine {
+      width: 45%;
+      height: 1px;
+      background-color: ${({theme}) => theme.stroke_primary};
+    }
+  }
+
+  .redirectionLink {
+    text-decoration: none;
+    color: ${({theme}) => theme.background_primary_blue};
+    font-size: 0.875rem;
+    border: none;
+    cursor: pointer;
   }
 `;
