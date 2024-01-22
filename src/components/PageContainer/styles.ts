@@ -91,4 +91,10 @@ export const Container = styled.div`
     border: none;
     cursor: pointer;
   }
+
+  .errorMessage {
+    font-size: 0.875rem;
+    color: red;
+  }
+
 `;
